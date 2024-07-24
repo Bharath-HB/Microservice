@@ -1,15 +1,12 @@
-package com.ust.User_Service.Client;
+package com.ust.Recommend_Service.Client;
 
 import lombok.AllArgsConstructor;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Data
 public class Review {
     private String reviewId;
     private String userId;

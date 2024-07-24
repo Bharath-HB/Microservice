@@ -17,20 +17,13 @@ public class ReviewController {
 
     @PostMapping("/addreview")
     public ResponseEntity<Review> addReview(@RequestBody Review review) {
-        Review savedReview = (Review) reviewService.addReview(review);
-        return new ResponseEntity<>(savedReview, HttpStatus.CREATED);
-    }
-
-
-    @GetMapping("/movie/review/{movieId}")
-    public ResponseEntity<List<Review>> getReviewByMovieId(@PathVariable String movieId) {
-        List<Review> reviews = reviewService.getReviewByMovieId(movieId);
-        return new ResponseEntity<>(reviews, HttpStatus.OK);
+        return ResponseEntity.ok(reviewService.addReview(review));
     }
 
     @GetMapping("/getAllReviews")
-    public ResponseEntity<List<Review>> getAllAppointment() {
-        return ResponseEntity.ok(reviewService.findAll());
+    public List<Review> getAllReviews() {
+        return reviewService.getAllReviews();
     }
+
 
 }

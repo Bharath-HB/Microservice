@@ -30,7 +30,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Review addReview(Review review) {
-        return reviewClient.addReview(review);
+    public List<Review> getReviewsByUserId(String userId) {
+        return reviewClient.getAllReviews().stream()
+                .filter(review -> review.getUserId().equals(userId))
+                .toList();
     }
+
 }

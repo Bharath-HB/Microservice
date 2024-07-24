@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Review {
-    private String userid;
-    private String username;
-    private String reviewText;
-    private int rating;
+    private String reviewId;
+    private String userId;
     private String movieId;
+    private String feedback;
+    private int rating;
 }

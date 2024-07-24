@@ -5,6 +5,7 @@ import com.ust.User_Service.Client.Review;
 import com.ust.User_Service.Model.User;
 import com.ust.User_Service.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +32,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @PostMapping("/addReview")
-    public ResponseEntity<Review> addReview(@RequestBody Review review) {
-        return ResponseEntity.ok(userService.addReview(review));
+    @GetMapping("/getReviews/{userId}")
+    public ResponseEntity<List<Review>> getReviewsByUserId(String userId) {
+        List<Review> reviews=userService.getReviewsByUserId(userId);
+        return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
+
 
 }
