@@ -13,5 +13,7 @@ import lombok.NoArgsConstructor;
 public class Recommend {
     @Id
     private String movieId;
-    private float rating;
+    private Double rating;
+
+
 }

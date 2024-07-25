@@ -19,9 +19,15 @@ public class RecommendationController {
     @Autowired
     private RecommendationService service;
 
-    @GetMapping("/{movieId}")
-   public ResponseEntity<Float> getRating(@PathVariable String movieId) {
-        Float rating =service.getRatingByMovieId(movieId);
+    @GetMapping("/rating/{movieId}")
+   public ResponseEntity<Double> getRating(@PathVariable String movieId) {
+        Double rating = service.getRatingByMovieId(movieId);
         return new ResponseEntity<>(rating, HttpStatus.OK);
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<List<Recommend>> getTopRatedMovies() {
+        List<Recommend> topRatedMovies = service.getTopRatedMovies();
+        return new ResponseEntity<>(topRatedMovies, HttpStatus.OK);
     }
 }

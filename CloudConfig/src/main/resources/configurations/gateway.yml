@@ -24,7 +24,7 @@ spring:
           uri: http://localhost:9101
           predicates:
             - Path=/review/**
-        - id: recommedservice
+        - id: recommendservice
           uri: http://localhost:9102
           predicates:
             - Path=/recommend/**

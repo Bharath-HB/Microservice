@@ -7,9 +7,7 @@ import com.ust.Recommend_Service.Repository.RecommendationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.OptionalDouble;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +22,8 @@ public class RecommendationService {
         return null;
     }
 
-    public  Float getRatingByMovieId(String movieId) {
-        return (float) client.getAllReviews().stream()
+    public  Double getRatingByMovieId(String movieId) {
+        return (Double) client.getAllReviews().stream()
                 .filter(review -> review.getMovieId().equals(movieId))
                 .mapToInt(Review::getRating)
                 .average()
@@ -33,9 +31,29 @@ public class RecommendationService {
     }
 
 
+    public List<Recommend> getTopRatedMovies() {
+        // Fetch all reviews
+        List<Review> reviews = client.getAllReviews();
 
+        // Group reviews by movieId and calculate average rating
+        Map<String, Double> averageRatingsByMovieId = reviews.stream()
+                .collect(Collectors.groupingBy(Review::getMovieId,
+                        Collectors.averagingInt(Review::getRating)));
 
+        // Create Recommend objects for each movieId and average rating
 
+        List<Recommend> topRatedMovies = averageRatingsByMovieId.keySet().stream()
+                .map(aDouble -> new Recommend(aDouble, getRatingByMovieId(aDouble)))
+                .sorted(Comparator.comparing(Recommend::getRating).reversed())
+                .toList();
+        return topRatedMovies;
+    }
 
-
+//    public  Float getAverageRating(String movieId) {
+//        return (float) client.getAllReviews().stream()
+//                .filter(review -> review.getMovieId().equals(movieId))
+//                .mapToInt(Review::getRating)
+//                .average()
+//                .orElse(0.0f);
+//    }
 }
